@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utils {
@@ -20,5 +22,11 @@ public class Utils {
         return output.toString();
     }
 
+    public static ArrayList<Year> parseUnemploymentData(String data){
+        ArrayList<CountryUnemployment> temp = new ArrayList<>();
+        String rows[] = data.split("\n");
+
+        return null;
+    }
 
 }
