@@ -20,6 +20,8 @@ public class Utils {
         return output.toString();
     }
 
+    //Parse data method
 
+//    public static void writeStringToFile(String filepath)
 
 }
