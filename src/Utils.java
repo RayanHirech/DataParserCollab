@@ -22,21 +22,13 @@ public class Utils {
         return output.toString();
     }
 
-    public static ArrayList<Year> parseUnemploymentData(String data){
-        ArrayList<CountryUnemployment> temp = new ArrayList<>();
+    public static ArrayList<Year> parseUnemploymentData(String data){ //TODO replace year with UnemploymentResults
+
+//      ArrayList<CountryUnemployment> temp = new ArrayList<>();
         String[] rows = data.split("\n");
-        String[] newrows = new String[rows.length];
-
-        for (int i = 0; i < rows.length; i++) {
-            int input = 0;
-            String row = rows[i];
-            if(row.isEmpty()) input++;
-            else newrows[i - input] = row;
-        }
-
-        for (int i = 0; i < newrows.length; i++) {
-            String newrow = newrows[i];
-            
+        String[] dataSet = new String[rows.length - 4];
+        for (int i = 4; i < rows.length; i++) {
+            dataSet[i - 4] = rows[i];
         }
 
         return null;
