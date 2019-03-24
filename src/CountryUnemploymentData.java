@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class CountryUnemployment {
+public class CountryUnemploymentData {
     //Use this class to store the data under the name of a country
 
     private String countryName;
@@ -9,7 +9,7 @@ public class CountryUnemployment {
     private String indicatorCode;
     public ArrayList<DataPoint> data;
     
-    public CountryUnemployment(){
+    public CountryUnemploymentData(){
         data = new ArrayList<>();
     }
 
