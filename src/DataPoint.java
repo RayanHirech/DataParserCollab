@@ -1,9 +1,9 @@
 public class DataPoint {
 
     private int year;
-    private int data;
+    private double data;
 
-    public DataPoint(int year, int data) {
+    public DataPoint(int year, double data) {
         this.year = year;
         this.data = data;
     }
@@ -11,14 +11,14 @@ public class DataPoint {
     public int getYear() {
         return this.year;
     }
-    public int getData() {
+    public double getData() {
         return this.data;
     }
 
     public void setYear(int year) {
         this.year = year;
     }
-    public void setData(int data) {
+    public void setData(double data) {
         this.data = data;
     }
 
