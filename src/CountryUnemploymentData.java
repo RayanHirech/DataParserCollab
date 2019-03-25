@@ -57,4 +57,13 @@ public class CountryUnemploymentData {
         return 0;
     }
 
+    public String toString() {
+        String out = "";
+        out = countryName + ", " + countryCode + ", " + indicatorName + ", " + indicatorCode + ", ";
+        for (DataPoint p : data) {
+            out += p.toString() + ", ";
+        }
+        return out;
+    }
+
 }

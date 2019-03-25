@@ -22,4 +22,10 @@ public class DataPoint {
         this.data = data;
     }
 
+    public String toString() {
+        String out = "";
+        out = "\"" + year + ", " + data + "\"";
+        return out;
+    }
+
 }

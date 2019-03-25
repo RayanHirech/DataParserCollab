@@ -31,17 +31,21 @@ public class Utils {
 //        for (int i = 0; i < labels.length; i++) {
 //            System.out.print(labels[i] + ", ");
 //        }
-        String[] dataSet = new String[rows.length - 4];
+        String[] dataSet = new String[rows.length - 5];
         for (int i = 5; i < rows.length; i++) {
             dataSet[i - 5] = removeUnnecessaryStuff(rows[i]);
         }
+
+//        for (int i = 0; i < dataSet.length; i++) {
+//            System.out.println(dataSet[i]);
+//        }
 
         for (int i = 0; i < dataSet.length; i++) {
             CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
             output.add(unemploymentData);
         }
 
-        return null;
+        return output;
     }
 
 //    public static ArrayList<CountryUnemploymentData> parseData(String data) {
@@ -83,7 +87,7 @@ public class Utils {
 
     public static String removeUnnecessaryStuff(String str) {
         if (str == null) {
-            return null;
+            return "";
         }
         while (str.indexOf(", ") != -1) {
             String str1 = str.substring(0, str.indexOf(", "));
