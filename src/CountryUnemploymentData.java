@@ -69,8 +69,10 @@ public class CountryUnemploymentData {
         double sum = 0;
         double num = 0;
         for (DataPoint p : data) {
-            sum += p.getData();
-            num++;
+            if (p.getYear() >= 1991 && p.getYear() <= 2018) {
+                sum += p.getData();
+                num++;
+            }
         }
         out = sum/num;
         return out;
