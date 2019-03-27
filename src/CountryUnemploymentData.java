@@ -73,4 +73,16 @@ public class CountryUnemploymentData {
         return out;
     }
 
+    public String toCSVLine() {
+        String out = "\"" + countryName + "\",\"" + countryCode + "\",\"" + indicatorName + "\",\"" + indicatorCode;
+        if (data.size() == 0) {
+            out += "\",\"No data available";
+        } else {
+            for (DataPoint p : data) {
+                out += "\",\"" + p.getData();
+            }
+        }
+        return out;
+    }
+
 }

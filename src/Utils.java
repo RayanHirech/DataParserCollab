@@ -29,53 +29,19 @@ public class Utils {
         String[] rows = data.split("\n");
         String[] labels = rows[4].split(",");
         labels = removeUnnecessaryStuff(labels);
-//        for (int i = 0; i < labels.length; i++) {
-//            System.out.print(labels[i] + ", ");
-//        }
         String[] dataSet = new String[rows.length - 4];
         for (int i = 5; i < rows.length; i++) {
             dataSet[i - 5] = removeUnnecessaryStuff(rows[i]);
         }
-
         for (int i = 0; i < dataSet.length - 1; i++) {
             CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
-            System.out.println(Arrays.toString(dataSet[i].split(",")));
-//            System.out.println(unemploymentData);
             output.add(unemploymentData);
         }
-
         return output;
+
     }
 
-//    public static ArrayList<CountryUnemploymentData> parseData(String data) {
-//
-//        ArrayList<CountryUnemploymentData> output = new ArrayList<>();
-//
-//
-//
-//        data = data.substring(data.indexOf("\n") + 1);
-//
-//        String[] dataSet = data.split("\n");
-//
-//
-//
-//        for (int i = 0; i < dataSet.length; i++) {
-//
-//            String str = removeUnnecessaryStuff(dataSet[i]);
-//
-//            String[] values = str.split(",");
-//
-//            CountryUnemploymentData unemploymentData = createUnemploymentData(values);
-//
-//            output.add(unemploymentData);
-//
-//        }
-//
-//
-//
-//        return output;
-//
-//    }
+    
 
     public static String[] removeUnnecessaryStuff(String[] input) {
         for (int i = 0; i < input.length; i++) {
