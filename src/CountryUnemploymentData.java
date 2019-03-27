@@ -1,3 +1,5 @@
+import javafx.scene.chart.PieChart;
+
 import java.util.ArrayList;
 
 public class CountryUnemploymentData {
@@ -10,7 +12,13 @@ public class CountryUnemploymentData {
     public ArrayList<DataPoint> data;
     
     public CountryUnemploymentData(){
+
+        countryName = "";
+        countryCode = "";
+        indicatorName = "";
+        indicatorCode = "";
         data = new ArrayList<>();
+
     }
 
     public String getCountryName() {
@@ -54,7 +62,38 @@ public class CountryUnemploymentData {
     }
 
     public double getAverageData() {
-        return 0;
+        if (data.size() == 0) {
+            return 0;
+        }
+        double out = 0;
+        double sum = 0;
+        double num = 0;
+        for (DataPoint p : data) {
+            if (p.getYear() >= 1991 && p.getYear() <= 2018) {
+                sum += p.getData();
+                num++;
+            }
+        }
+        out = sum/num;
+        return out;
+    }
+
+    public String toString() {
+        String out = countryName + ", " + countryCode + ", " + indicatorName + ", " + indicatorCode;
+        for (DataPoint p : data) {
+            out += ", " + p.toString();
+        }
+        return out;
+    }
+
+    public String toCSVLine() {
+        String out = "\"" + countryName + "\",\"" + countryCode + "\",\"" + indicatorName + "\",\"" + indicatorCode;
+        if (data.size() == 0) {
+            out += "\",\"No data available";
+        } else {
+            out += "\",\"" + getAverageData() + "\"";
+        }
+        return out;
     }
 
     public String toString() {

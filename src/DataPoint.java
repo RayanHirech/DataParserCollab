@@ -23,8 +23,7 @@ public class DataPoint {
     }
 
     public String toString() {
-        String out = "";
-        out = "\"" + year + ", " + data + "\"";
+        String out = year + ": " + data;
         return out;
     }
 

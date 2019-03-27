@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utils {
@@ -22,61 +23,31 @@ public class Utils {
         return output.toString();
     }
 
-    public static ArrayList<CountryUnemploymentData> parseUnemploymentData(String data){ //TODO replace year with UnemploymentResults
+    public static ArrayList<CountryUnemploymentData> parseCountryUnemploymentData(String data){ //TODO replace year with UnemploymentResults
 
         ArrayList<CountryUnemploymentData> output = new ArrayList<>();
         String[] rows = data.split("\n");
         String[] labels = rows[4].split(",");
         labels = removeUnnecessaryStuff(labels);
-//        for (int i = 0; i < labels.length; i++) {
-//            System.out.print(labels[i] + ", ");
-//        }
-        String[] dataSet = new String[rows.length - 5];
+        String[] dataSet = new String[rows.length - 4];
         for (int i = 5; i < rows.length; i++) {
             dataSet[i - 5] = removeUnnecessaryStuff(rows[i]);
         }
-
-//        for (int i = 0; i < dataSet.length; i++) {
-//            System.out.println(dataSet[i]);
-//        }
-
-        for (int i = 0; i < dataSet.length; i++) {
+        for (int i = 0; i < dataSet.length - 1; i++) {
             CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
             output.add(unemploymentData);
         }
-
         return output;
+
     }
 
-//    public static ArrayList<CountryUnemploymentData> parseData(String data) {
-//
-//        ArrayList<CountryUnemploymentData> output = new ArrayList<>();
-//
-//
-//
-//        data = data.substring(data.indexOf("\n") + 1);
-//
-//        String[] dataSet = data.split("\n");
-//
-//
-//
-//        for (int i = 0; i < dataSet.length; i++) {
-//
-//            String str = removeUnnecessaryStuff(dataSet[i]);
-//
-//            String[] values = str.split(",");
-//
-//            CountryUnemploymentData unemploymentData = createUnemploymentData(values);
-//
-//            output.add(unemploymentData);
-//
-//        }
-//
-//
-//
-//        return output;
-//
-//    }
+    public static String countryUnemploymentDataToCSVString(ArrayList<CountryUnemploymentData> list) {
+        String out = "\"Country Name\",\"Country Code\",\"Indicator Name\",\"Indicator Code\",\"Average from 1991 to 2018\"\n\n";
+        for (CountryUnemploymentData c : list) {
+            out += c.toCSVLine() + "\n";
+        }
+        return out;
+    }
 
     public static String[] removeUnnecessaryStuff(String[] input) {
         for (int i = 0; i < input.length; i++) {
@@ -87,7 +58,7 @@ public class Utils {
 
     public static String removeUnnecessaryStuff(String str) {
         if (str == null) {
-            return "";
+            return null;
         }
         while (str.indexOf(", ") != -1) {
             String str1 = str.substring(0, str.indexOf(", "));
@@ -106,10 +77,10 @@ public class Utils {
 //        labels = removeUnnecessaryStuff(labels);
 //        values = removeUnnecessaryStuff(values);
         CountryUnemploymentData output = new CountryUnemploymentData();
-        String countryName = values[0];
-        String countryCode = values[1];
-        String indicatorName = values[2];
-        String indicatorCode = values[3];
+        output.setCountryName(values[0]);
+        output.setCountryCode(values[1]);
+        output.setIndicatorName(values[2]);
+        output.setIndicatorCode(values[3]);
         for (int i = 4; i < values.length; i++) {
             if (!values[i].equals("")) {
                 DataPoint p = new DataPoint(Integer.parseInt(labels[i]), Double.parseDouble(values[i]));
