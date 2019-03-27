@@ -38,10 +38,11 @@ public class Utils {
 
         for (int i = 0; i < dataSet.length; i++) {
             CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
+//            System.out.println(unemploymentData);
             output.add(unemploymentData);
         }
 
-        return null;
+        return output;
     }
 
 //    public static ArrayList<CountryUnemploymentData> parseData(String data) {
@@ -102,10 +103,10 @@ public class Utils {
 //        labels = removeUnnecessaryStuff(labels);
 //        values = removeUnnecessaryStuff(values);
         CountryUnemploymentData output = new CountryUnemploymentData();
-        String countryName = values[0];
-        String countryCode = values[1];
-        String indicatorName = values[2];
-        String indicatorCode = values[3];
+        output.setCountryName(values[0]);
+        output.setCountryCode(values[1]);
+        output.setIndicatorName(values[2]);
+        output.setIndicatorCode(values[3]);
         for (int i = 4; i < values.length; i++) {
             if (!values[i].equals("")) {
                 DataPoint p = new DataPoint(Integer.parseInt(labels[i]), Double.parseDouble(values[i]));

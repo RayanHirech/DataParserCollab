@@ -1,3 +1,5 @@
+import javafx.scene.chart.PieChart;
+
 import java.util.ArrayList;
 
 public class CountryUnemploymentData {
@@ -10,7 +12,13 @@ public class CountryUnemploymentData {
     public ArrayList<DataPoint> data;
     
     public CountryUnemploymentData(){
+
+        countryName = "";
+        countryCode = "";
+        indicatorName = "";
+        indicatorCode = "";
         data = new ArrayList<>();
+
     }
 
     public String getCountryName() {
@@ -55,6 +63,14 @@ public class CountryUnemploymentData {
 
     public double getAverageData() {
         return 0;
+    }
+
+    public String toString() {
+        String out = countryName + ", " + countryCode + ", " + indicatorName + ", " + indicatorCode;
+        for (DataPoint p : data) {
+            out += ", " + p.toString();
+        }
+        return out;
     }
 
 }
