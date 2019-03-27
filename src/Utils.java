@@ -23,7 +23,7 @@ public class Utils {
         return output.toString();
     }
 
-    public static ArrayList<CountryUnemploymentData> parseUnemploymentData(String data){ //TODO replace year with UnemploymentResults
+    public static ArrayList<CountryUnemploymentData> parseCountryUnemploymentData(String data){ //TODO replace year with UnemploymentResults
 
         ArrayList<CountryUnemploymentData> output = new ArrayList<>();
         String[] rows = data.split("\n");
@@ -41,7 +41,7 @@ public class Utils {
 
     }
 
-    
+    public String countryUnemploymentData
 
     public static String[] removeUnnecessaryStuff(String[] input) {
         for (int i = 0; i < input.length; i++) {
