@@ -103,12 +103,28 @@ public class Utils {
         if (str == null) {
             return null;
         }
-        do {
+        while (str.indexOf("\"") != -1) {
             int firstQuote = str.indexOf("\"");
             int secondQuote = str.indexOf("\"", firstQuote + 1);
-            // remove commas between quotes
-            // remove quotes
-        } while (str.indexOf("\"") != -1);
+            int commaIndex = str.indexOf(",", firstQuote);
+            System.out.println(firstQuote + ", " + commaIndex + ", " + secondQuote);
+            while (commaIndex > firstQuote && commaIndex < secondQuote) {
+                String str1 = str.substring(0, commaIndex);
+                String str2 = str.substring(commaIndex + 1);
+                str = str1 + str2;
+                commaIndex = str.indexOf(",");
+            }
+            if (firstQuote != -1 && secondQuote == -1) {
+                String str1 = str.substring(0, firstQuote);
+                String str2 = str.substring(firstQuote + 1);
+                str = str1 + str2;
+            } else {
+                String str1 = str.substring(0, firstQuote);
+                String str2 = str.substring(firstQuote + 1, secondQuote);
+                String str3 = str.substring(secondQuote + 1);
+                str = str1 + str2 + str3;
+            }
+        }
         return str;
     }
 
