@@ -9,14 +9,10 @@ public class CountryUnemploymentData {
     private String countryCode;
     private String indicatorName;
     private String indicatorCode;
-    public ArrayList<DataPoint> data;
+    private ArrayList<DataPoint> data;
     
     public CountryUnemploymentData(){
 
-        countryName = "";
-        countryCode = "";
-        indicatorName = "";
-        indicatorCode = "";
         data = new ArrayList<>();
 
     }
@@ -89,18 +85,9 @@ public class CountryUnemploymentData {
     public String toCSVLine() {
         String out = "\"" + countryName + "\",\"" + countryCode + "\",\"" + indicatorName + "\",\"" + indicatorCode;
         if (data.size() == 0) {
-            out += "\",\"No data available";
+            out += "\",\"No data available\"";
         } else {
             out += "\",\"" + getAverageData() + "\"";
-        }
-        return out;
-    }
-
-    public String toString() {
-        String out = "";
-        out = countryName + ", " + countryCode + ", " + indicatorName + ", " + indicatorCode + ", ";
-        for (DataPoint p : data) {
-            out += p.toString() + ", ";
         }
         return out;
     }

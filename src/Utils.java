@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class Utils {
         return output.toString();
     }
 
-    public static ArrayList<CountryUnemploymentData> parseCountryUnemploymentData(String data){ //TODO replace year with UnemploymentResults
+    public static ArrayList<CountryUnemploymentData> parseCountryUnemploymentData(String data){
 
         ArrayList<CountryUnemploymentData> output = new ArrayList<>();
         String[] rows = data.split("\n");
@@ -88,6 +90,15 @@ public class Utils {
             }
         }
         return output;
+    }
+
+    public static void writeDataToFile(String filepath, String data) {
+        File outFile = new File(filepath);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
+            writer.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

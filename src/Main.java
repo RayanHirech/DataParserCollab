@@ -7,6 +7,10 @@ public class Main {
 //        for (CountryUnemploymentData c : list) {
 //            System.out.println(c.toString());
 //        }
-        System.out.println(Utils.countryUnemploymentDataToCSVString(list));
+        String str = Utils.countryUnemploymentDataToCSVString(list);
+        Utils.writeDataToFile("data/data.csv", str);
+
+//        String otherUnemploymentData = Utils.readFileAsString("data/UnemploymentDataSet.csv");
+
     }
 }
