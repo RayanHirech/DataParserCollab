@@ -89,7 +89,7 @@ public class CountryUnemploymentData {
         if (data.size() == 0) {
             out += "\",\"No data available";
         } else {
-            out += "\",\"" + getAverageData();
+            out += "\",\"" + getAverageData() + "\"";
         }
         return out;
     }

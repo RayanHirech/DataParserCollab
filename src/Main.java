@@ -7,6 +7,6 @@ public class Main {
 //        for (CountryUnemploymentData c : list) {
 //            System.out.println(c.toString());
 //        }
-        System.out.println(list.get(4).toString());
+        System.out.println(Utils.countryUnemploymentDataToCSVString(list));
     }
 }
