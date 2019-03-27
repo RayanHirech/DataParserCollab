@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utils {
@@ -36,8 +37,9 @@ public class Utils {
             dataSet[i - 5] = removeUnnecessaryStuff(rows[i]);
         }
 
-        for (int i = 0; i < dataSet.length; i++) {
+        for (int i = 0; i < dataSet.length - 1; i++) {
             CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
+            System.out.println(Arrays.toString(dataSet[i].split(",")));
 //            System.out.println(unemploymentData);
             output.add(unemploymentData);
         }
