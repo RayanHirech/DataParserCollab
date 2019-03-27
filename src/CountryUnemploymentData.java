@@ -62,7 +62,18 @@ public class CountryUnemploymentData {
     }
 
     public double getAverageData() {
-        return 0;
+        if (data.size() == 0) {
+            return 0;
+        }
+        double out = 0;
+        double sum = 0;
+        double num = 0;
+        for (DataPoint p : data) {
+            sum += p.getData();
+            num++;
+        }
+        out = sum/num;
+        return out;
     }
 
     public String toString() {
@@ -78,9 +89,7 @@ public class CountryUnemploymentData {
         if (data.size() == 0) {
             out += "\",\"No data available";
         } else {
-            for (DataPoint p : data) {
-                out += "\",\"" + p.getData();
-            }
+            out += "\",\"" + getAverageData();
         }
         return out;
     }

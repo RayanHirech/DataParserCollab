@@ -41,7 +41,10 @@ public class Utils {
 
     }
 
-    public String countryUnemploymentData
+    public String countryUnemploymentDataToCSVString(ArrayList<CountryUnemploymentData> list) {
+        String out = "";
+        return out;
+    }
 
     public static String[] removeUnnecessaryStuff(String[] input) {
         for (int i = 0; i < input.length; i++) {
