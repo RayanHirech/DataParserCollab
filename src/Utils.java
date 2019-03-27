@@ -1,8 +1,8 @@
+import javax.swing.plaf.nimbus.State;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -43,6 +43,23 @@ public class Utils {
 
     }
 
+    public static ArrayList<StateUnemploymentData> parseStateUnemploymentData(String data) {
+
+        ArrayList<StateUnemploymentData> output = new ArrayList<>();
+        String[] rows = data.split("\n");
+        String[] labels = rows[7].split(",");
+        labels = removeUnnecessaryStuff(labels);
+        String[] dataSet = new String[rows.length - 7];
+        for (int i = 8; i < rows.length; i++) {
+            dataSet[i - 8] = removeUnnecessaryStuff2(rows[i]); //TODO create new removeJunk method for this data set
+//            dataSet[i-8] = rows[i];
+        }
+        System.out.println(dataSet[0]);
+
+        return output;
+
+    }
+
     public static String countryUnemploymentDataToCSVString(ArrayList<CountryUnemploymentData> list) {
         String out = "\"Country Name\",\"Country Code\",\"Indicator Name\",\"Indicator Code\",\"Average from 1991 to 2018\"\n\n";
         for (CountryUnemploymentData c : list) {
@@ -72,6 +89,26 @@ public class Utils {
             String str2 = str.substring(str.indexOf("\"") + 1);
             str = str1 + str2;
         }
+        return str;
+    }
+
+    public static String[] removeUnnecessaryStuff2(String[] input) {
+        for (int i = 0; i < input.length; i++) {
+            input[i] = removeUnnecessaryStuff2(input[i]);
+        }
+        return input;
+    }
+
+    public static String removeUnnecessaryStuff2(String str) {
+        if (str == null) {
+            return null;
+        }
+        do {
+            int firstQuote = str.indexOf("\"");
+            int secondQuote = str.indexOf("\"", firstQuote + 1);
+            // remove commas between quotes
+            // remove quotes
+        } while (str.indexOf("\"") != -1);
         return str;
     }
 
