@@ -36,7 +36,7 @@ public class Utils {
             dataSet[i - 5] = removeUnnecessaryStuff(rows[i]);
         }
         for (int i = 0; i < dataSet.length - 1; i++) {
-            CountryUnemploymentData unemploymentData = createUnemploymentData(labels, dataSet[i].split(","));
+            CountryUnemploymentData unemploymentData = createCountryUnemploymentData(labels, dataSet[i].split(","));
             output.add(unemploymentData);
         }
         return output;
@@ -52,10 +52,11 @@ public class Utils {
         String[] dataSet = new String[rows.length - 7];
         for (int i = 8; i < rows.length; i++) {
             dataSet[i - 8] = removeUnnecessaryStuff2(rows[i]); //TODO create new removeJunk method for this data set
-//            dataSet[i-8] = rows[i];
         }
-        System.out.println(dataSet[0]);
-
+        for (int i = 0; i < dataSet.length - 1; i++) {
+            StateUnemploymentData unemploymentData = createStateUnemploymentData(labels, dataSet[i].split(","));
+            output.add(unemploymentData);
+        }
         return output;
 
     }
@@ -132,7 +133,7 @@ public class Utils {
         return str;
     }
 
-    public static CountryUnemploymentData createUnemploymentData(String[] labels, String[] values) {
+    public static CountryUnemploymentData createCountryUnemploymentData(String[] labels, String[] values) {
 //        labels = removeUnnecessaryStuff(labels);
 //        values = removeUnnecessaryStuff(values);
         CountryUnemploymentData output = new CountryUnemploymentData();
@@ -143,6 +144,25 @@ public class Utils {
         for (int i = 4; i < values.length; i++) {
             if (!values[i].equals("")) {
                 DataPoint p = new DataPoint(Integer.parseInt(labels[i]), Double.parseDouble(values[i]));
+                output.addData(p);
+            }
+        }
+        return output;
+    }
+
+    public static StateUnemploymentData createStateUnemploymentData(String[] labels, String[] values) {
+//        labels = removeUnnecessaryStuff(labels);
+//        values = removeUnnecessaryStuff(values);
+        StateUnemploymentData output = new StateUnemploymentData();
+        output.setFIPS(Integer.parseInt(values[0]));
+        output.setState(values[1]);
+        output.setAreaName(values[2]);
+        output.setRuralUrbanContinuumCode(Integer.parseInt(values[3]));
+        output.setUrbanInfluenceCode(Integer.parseInt(values[4]));
+        output.setMetro(Integer.parseInt(values[5]));
+        for (int i = 6; i < values.length; i++) {
+            if (!values[i].equals("")) {
+                DataPoint p = new DataPoint(Integer.parseInt(labels[i]), Double.parseDouble(values[i])); //TODO Fix what's in this for-loop
                 output.addData(p);
             }
         }
