@@ -51,11 +51,13 @@ public class Utils {
         labels = removeUnnecessaryStuff(labels);
         String[] dataSet = new String[rows.length - 7];
         for (int i = 8; i < rows.length; i++) {
-            dataSet[i - 8] = removeUnnecessaryStuff2(rows[i]); //TODO create new removeJunk method for this data set
+            dataSet[i - 8] = removeUnnecessaryStuff2(rows[i]);
         }
         for (int i = 0; i < dataSet.length - 1; i++) {
             StateUnemploymentData unemploymentData = createStateUnemploymentData(labels, dataSet[i].split(","));
-            output.add(unemploymentData);
+            if (unemploymentData != null) {
+                output.add(unemploymentData);
+            }
         }
         return output;
 
@@ -65,6 +67,14 @@ public class Utils {
         String out = "\"Country Name\",\"Country Code\",\"Indicator Name\",\"Indicator Code\",\"Average from 1991 to 2018\"\n\n";
         for (CountryUnemploymentData c : list) {
             out += c.toCSVLine() + "\n";
+        }
+        return out;
+    }
+
+    public static String stateUnemploymentDataToCSVString(ArrayList<StateUnemploymentData> list) {
+        String out = "\"FIPStxt\",\"State\",\"Area_name\",\"Rural_urban_continuum_code_2013\",\"Urban_influence_code_2013\",\"Metro_2013\",\"Average Employment Data from 2007 to 2017\",\"Average Unemployment Data from 2007 to 2017\"\n\n";
+        for (StateUnemploymentData s : list) {
+            out += s.toCSVLine() + "\n";
         }
         return out;
     }
@@ -153,6 +163,13 @@ public class Utils {
     public static StateUnemploymentData createStateUnemploymentData(String[] labels, String[] values) {
 //        labels = removeUnnecessaryStuff(labels);
 //        values = removeUnnecessaryStuff(values);
+        for (int i = 0; i < 6; i++) {
+            if (values[i] == null) {
+                return null;
+            } else if (values[i].equals("")) {
+                return null;
+            }
+        }
         StateUnemploymentData output = new StateUnemploymentData();
         output.setFIPS(Integer.parseInt(values[0]));
         output.setState(values[1]);
@@ -162,11 +179,55 @@ public class Utils {
         output.setMetro(Integer.parseInt(values[5]));
         for (int i = 6; i < values.length; i++) {
             if (!values[i].equals("")) {
-                DataPoint p = new DataPoint(Integer.parseInt(labels[i]), Double.parseDouble(values[i])); //TODO Fix what's in this for-loop
-                output.addData(p);
+                if (labels[i].indexOf("Civilian") == -1) {
+                    if (labels[i].indexOf("Unemploy") == -1) {
+                        DataPoint p = new DataPoint(Integer.parseInt(removeLetters(labels[i])), Double.parseDouble(removeLetters(values[i])));
+                        output.addEmploymentData(p);
+                    } else {
+                        DataPoint p = new DataPoint(Integer.parseInt(removeLetters(labels[i])), Double.parseDouble(removeLetters(values[i])));
+                        output.addUnemploymentData(p);
+                    }
+                }
             }
         }
         return output;
+    }
+
+    public static String removeLetters(String str) {
+        String out = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (isNumber(str.substring(i, i + 1))) {
+                out += str.substring(i, i + 1);
+            }
+        }
+        return out;
+    }
+
+    public static boolean isNumber (String str) {
+        if (str.equals("0")) {
+            return true;
+        } else if (str.equals("1")) {
+            return true;
+        } else if (str.equals("2")) {
+            return true;
+        } else if (str.equals("3")) {
+            return true;
+        } else if (str.equals("4")) {
+            return true;
+        } else if (str.equals("5")) {
+            return true;
+        } else if (str.equals("6")) {
+            return true;
+        } else if (str.equals("7")) {
+            return true;
+        } else if (str.equals("8")) {
+            return true;
+        } else if (str.equals("9")) {
+            return true;
+        } else if (str.equals(".")) {
+            return true;
+        }
+        return false;
     }
 
     public static void writeDataToFile(String filepath, String data) {

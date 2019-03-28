@@ -84,4 +84,57 @@ public class StateUnemploymentData {
         unemploymentData.add(p);
     }
 
+    public String toString() {
+        String out = "";
+        out += FIPS + ", " + state + ", " + areaName + ", " + ruralUrbanContinuumCode + ", " + urbanInfluenceCode + ", " + metro;
+        for (int i = 0; i < employmentData.size(); i++) {
+            out += ", " + employmentData.get(i).toString() + ", " + unemploymentData.get(i).toString();
+        }
+        return out;
+    }
+
+    public double getAverageEmploymentData() {
+        if (employmentData.size() == 0) {
+            return 0;
+        }
+        double out = 0;
+        double sum = 0;
+        double num = 0;
+        for (DataPoint p : employmentData) {
+            if (p.getYear() >= 2007 && p.getYear() <= 2017) {
+                sum += p.getData();
+                num++;
+            }
+        }
+        out = sum/num;
+        return out;
+    }
+
+    public double getAverageUnemploymentData() {
+        if (unemploymentData.size() == 0) {
+            return 0;
+        }
+        double out = 0;
+        double sum = 0;
+        double num = 0;
+        for (DataPoint p : unemploymentData) {
+            if (p.getYear() >= 2007 && p.getYear() <= 2017) {
+                sum += p.getData();
+                num++;
+            }
+        }
+        out = sum/num;
+        return out;
+    }
+
+    public String toCSVLine() {
+        String out = "\"" + FIPS + "\",\"" + state + "\",\"" + areaName + "\",\"" + ruralUrbanContinuumCode + "\",\"" + urbanInfluenceCode + "\",\"" + metro;
+        if (employmentData.size() == 0 || unemploymentData.size() == 0) {
+            out += "\",\"No data available\"";
+        } else {
+            out += "\",\"" + getAverageEmploymentData() + "\",\"" + getAverageUnemploymentData() + "\"";
+        }
+        return out;
+    }
+
 }
